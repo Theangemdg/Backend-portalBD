@@ -4,19 +4,15 @@
     class Usuario {
         private $nombre;
         private $correo;
-        private $contraseña;
-        private $latitud;
-        private $longitud;
+        private $contrasena;
         private $ordenes;
         private $pedidos;
         private $metodoPago;
 
-        public function __construct($nombre,$correo,$contraseña,$latitud,$longitud,$ordenes,$pedidos,$metodoPago){
+        public function __construct($nombre,$correo,$contrasena,$ordenes,$pedidos,$metodoPago){
             $this->nombre = $nombre;
             $this->correo = $correo;
-            $this->contraseña = $contraseña;
-            $this->latitud = $latitud;
-            $this->longitud = $longitud;
+            $this->contrasena = $contrasena;
             $this->ordenes = $ordenes;
             $this->pedidos = $pedidos;
             $this->metodoPago = $metodoPago;
@@ -29,9 +25,7 @@
             $usuarios[] = array(
                     "nombre"=> $this->nombre,
                     "correo"=> $this->correo,
-                    "contraseña"=> $this->contraseña,
-                    "latitud"=> $this ->latitud,
-                    "longitud"=> $this ->longitud,
+                    "contrasena"=> $this->contrasena,
                     "ordenes"=> $this ->ordenes,
                     "pedidos"=> $this ->pedidos,
                     "metodoPago"=> $this ->metodoPago,
@@ -95,21 +89,21 @@
         }
 
         /**
-         * Get the value of contraseña
+         * Get the value of contrasena
          */ 
-        public function getContraseña()
+        public function getContrasena()
         {
-                return $this->contraseña;
+                return $this->contrasena;
         }
 
         /**
-         * Set the value of contraseña
+         * Set the value of contrasena
          *
          * @return  self
          */ 
-        public function setContraseña($contraseña)
+        public function setContrasena($contrasena)
         {
-                $this->contraseña = $contraseña;
+                $this->contrasena = $contrasena;
 
                 return $this;
         }

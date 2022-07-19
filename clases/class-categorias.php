@@ -4,13 +4,13 @@
         private $id;
         private $nombreCategoria;
         private $icono;
-        private $empresas;
+        private $productos;
 
-        public function __construct($id,$nombreCategoria,$icono,$empresas){
+        public function __construct($id,$nombreCategoria,$icono,$productos){
             $this->id = $id;
             $this->nombreCategoria = $nombreCategoria;
             $this->icono = $icono;
-            $this->empresas = $empresas;
+            $this->productos = $productos;
         }
 
 
@@ -21,7 +21,7 @@
                         "id"=> $this->id,
                         "nombreCategoria"=> $this->nombreCategoria,
                         "icono"=> $this->icono,
-                        "empresas"=> $this ->empresas
+                        "productos"=> $this ->productos
  
                 );
                 $archivo = fopen("../data/categorias.json","w");
@@ -37,7 +37,7 @@
                         "id"=> $this->id,
                         "nombreCategoria"=> $this->nombreCategoria,
                         "icono"=> $this->icono,
-                        "empresas"=> $this ->empresas
+                        "productos"=> $this ->productos
                 );
                 $categorias[$indice] = $categoria;
                 $archivo = fopen("../data/categorias.json", "w");
@@ -129,21 +129,21 @@
         }
 
         /**
-         * Get the value of empresas
+         * Get the value of productos
          */ 
-        public function getEmpresas()
+        public function getproductos()
         {
-                return $this->empresas;
+                return $this->productos;
         }
 
         /**
-         * Set the value of empresas
+         * Set the value of productos
          *
          * @return  self
          */ 
-        public function setEmpresas($empresas)
+        public function setproductos($productos)
         {
-                $this->empresas = $empresas;
+                $this->productos = $productos;
 
                 return $this;
         }
