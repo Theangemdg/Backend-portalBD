@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "nombre": "Alejandro",
+        "correo": "ale@gmail.com",
+        "password": "moisa"
+    },
+    {
+        "id": 2,
+        "nombre": "Kamisato",
+        "correo": "kamisato@gmail.com",
+        "password": "aya123"
+    },
+    {
+        "id": 3,
+        "nombre": "Mauricio",
+        "correo": "mau@gmail.com",
+        "password": "as123"
+    },
+    {
+        "id": 4,
+        "nombre": "Moises",
+        "correo": "moi@gmail.com",
+        "password": "as123"
+    },
+    {
+        "id": 5,
+        "nombre": "Maria",
+        "correo": "mari@gmail.com",
+        "password": "as123"
+    }
+]
