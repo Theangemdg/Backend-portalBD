@@ -3,6 +3,7 @@
         "nombre": "Pedro",
         "correo": "Martinez@gmail.com",
         "contrasena": "as123",
+        "direccion": "tegucigalpa",
         "ordenes": [
             {
                 "nombreProducto": "Pastel Helado",
@@ -74,34 +75,14 @@
         "nombre": "Juan",
         "correo": "Perez@gmail.com",
         "contrasena": "as123",
+        "direccion": "tegucigalpa",
         "ordenes": [
-            {
-                "nombreProducto": "Media Docena",
-                "imgProducto": "..\/img\/DkmediaDocena.jpg",
-                "cantidad": 2,
-                "descripcion": "Donuts",
-                "precio": 186.99
-            },
-            {
-                "nombreProducto": "Docena de donas",
-                "imgProducto": "..\/img\/DKDocena.png",
-                "cantidad": 2,
-                "descripcion": "Donuts",
-                "precio": 279.99
-            },
-            {
-                "nombreProducto": "Dona + Caf\u00e9",
-                "imgProducto": "..\/img\/DKDonaCafe.jpg",
-                "cantidad": 2,
-                "descripcion": "Donas y caf\u00e9",
-                "precio": 59.99
-            },
             {
                 "nombreProducto": "Pizza de peperoni",
                 "imgProducto": "..\/img\/PizzaPeperoni.jpg",
                 "cantidad": 1,
                 "descripcion": "Pizzas",
-                "precio": 110
+                "precio": 120
             }
         ],
         "pedidos": [
@@ -130,6 +111,53 @@
                         "precio": 250.99
                     }
                 ]
+            },
+            {
+                "numeroPedido": 2,
+                "usuario": "Juan",
+                "correo": "Perez@gmail.com",
+                "fechaPago": "19\/7\/2022",
+                "total": 732.5155,
+                "icv": 95.5455,
+                "subTotal": 636.97,
+                "productos": [
+                    {
+                        "nombreProducto": "Media Docena",
+                        "cantidad": 2,
+                        "precio": 186.99
+                    },
+                    {
+                        "nombreProducto": "Docena de donas",
+                        "cantidad": 2,
+                        "precio": 279.99
+                    },
+                    {
+                        "nombreProducto": "Dona + Caf\u00e9",
+                        "cantidad": 2,
+                        "precio": 59.99
+                    },
+                    {
+                        "nombreProducto": "Pizza de peperoni",
+                        "cantidad": 1,
+                        "precio": 110
+                    }
+                ]
+            },
+            {
+                "numeroPedido": 3,
+                "usuario": "Juan",
+                "correo": "Perez@gmail.com",
+                "fechaPago": "19\/7\/2022",
+                "total": 138,
+                "icv": 18,
+                "subTotal": 120,
+                "productos": [
+                    {
+                        "nombreProducto": "Pizza de peperoni",
+                        "cantidad": 1,
+                        "precio": 120
+                    }
+                ]
             }
         ],
         "metodoPago": [
@@ -145,6 +173,7 @@
         "nombre": "Maria",
         "correo": "Rodriguez@gmail.com",
         "contrasena": "as123",
+        "direccion": "tegucigalpa",
         "ordenes": [
             {
                 "nombreProducto": "Media Docena",

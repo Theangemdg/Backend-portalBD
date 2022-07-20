@@ -5,7 +5,7 @@
     switch($_SERVER['REQUEST_METHOD']){
         case 'POST':
             $_POST = json_decode(file_get_contents('php://input'),true);
-            $usuario = new Usuario($_POST["nombre"], $_POST["correo"], $_POST["contrasena"], $_POST["ordenes"], $_POST["pedidos"], $_POST["metodoPago"]);
+            $usuario = new Usuario($_POST["nombre"], $_POST["correo"], $_POST["contrasena"], $_POST["direccion"], $_POST["ordenes"], $_POST["pedidos"], $_POST["metodoPago"]);
             $usuario -> guardarUsuarios();
             $resultado["mensaje"] = "Guardar usuiario, informacion: ".json_encode($_POST);
             echo json_encode($resultado); 

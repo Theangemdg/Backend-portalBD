@@ -2,8 +2,8 @@
     {
         "id": 1,
         "nombreCategoria": "Pizzass",
-        "icono": "..\/img\/iconoPizza.jpg",
-        "empresas": [
+        "icono": "../img/iconoPizza.jpg",
+        "productos": [
             {
                 "id": 1,
                 "nombreProducto": "Pizza de peperoni",
@@ -24,14 +24,14 @@
                 "imgProducto": "..\/img\/Pizza4estaciones.jpg",
                 "descripcion": "Pizzas",
                 "precio": 199.99
-            },
+            }
 
         ]
     },
     {
         "id": 2,
         "nombreCategoria": "Hamburguesas",
-        "icono": "..\/img\/hamburguesaIcono.jpg",
+        "icono": "../img/hamburguesaIcono.jpg",
         "productos": [
             {
                 "id": 1,
@@ -80,7 +80,7 @@
     {
         "id": 3,
         "nombreCategoria": "Farmacias",
-        "icono": "..\/img\/FarmaciasIcono.jpg",
+        "icono": "../img/FarmaciasIcono.jpg",
         "productos": [
             {
                 "id": 1,
@@ -108,7 +108,7 @@
     {
         "id": 4,
         "nombreCategoria": "Bebidas",
-        "icono": "..\/img\/BebidasIcono.jpg",
+        "icono": "../img/BebidasIcono.jpg",
         "productos": [
             {
                 "id": 1,
@@ -178,7 +178,7 @@
     {
         "id": 5,
         "nombreCategoria": "Postres",
-        "icono": "..\/img\/PostresIcono.jpg",
+        "icono": "../img/PostresIcono.jpg",
         "productos": [
             {
                 "id": 1,

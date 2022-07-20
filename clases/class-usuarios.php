@@ -5,14 +5,16 @@
         private $nombre;
         private $correo;
         private $contrasena;
+        private $direccion;
         private $ordenes;
         private $pedidos;
         private $metodoPago;
 
-        public function __construct($nombre,$correo,$contrasena,$ordenes,$pedidos,$metodoPago){
+        public function __construct($nombre,$correo,$contrasena,$direccion,$ordenes,$pedidos,$metodoPago){
             $this->nombre = $nombre;
             $this->correo = $correo;
             $this->contrasena = $contrasena;
+            $this->direccion = $direccion;
             $this->ordenes = $ordenes;
             $this->pedidos = $pedidos;
             $this->metodoPago = $metodoPago;
@@ -26,6 +28,7 @@
                     "nombre"=> $this->nombre,
                     "correo"=> $this->correo,
                     "contrasena"=> $this->contrasena,
+                    "direccion"=> $this->direccion,
                     "ordenes"=> $this ->ordenes,
                     "pedidos"=> $this ->pedidos,
                     "metodoPago"=> $this ->metodoPago,
@@ -109,46 +112,6 @@
         }
 
         /**
-         * Get the value of latitud
-         */ 
-        public function getLatitud()
-        {
-                return $this->latitud;
-        }
-
-        /**
-         * Set the value of latitud
-         *
-         * @return  self
-         */ 
-        public function setLatitud($latitud)
-        {
-                $this->latitud = $latitud;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of longitud
-         */ 
-        public function getLongitud()
-        {
-                return $this->longitud;
-        }
-
-        /**
-         * Set the value of longitud
-         *
-         * @return  self
-         */ 
-        public function setLongitud($longitud)
-        {
-                $this->longitud = $longitud;
-
-                return $this;
-        }
-
-        /**
          * Get the value of ordenes
          */ 
         public function getOrdenes()
@@ -204,6 +167,26 @@
         public function setMetodoPago($metodoPago)
         {
                 $this->metodoPago = $metodoPago;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of direccion
+         */ 
+        public function getDireccion()
+        {
+                return $this->direccion;
+        }
+
+        /**
+         * Set the value of direccion
+         *
+         * @return  self
+         */ 
+        public function setDireccion($direccion)
+        {
+                $this->direccion = $direccion;
 
                 return $this;
         }
