@@ -13,7 +13,7 @@
         case 'GET':
             if (isset($_GET['id']) && isset($_GET['idP'])){
                 Producto::obtenerProducto($_GET['id'],$_GET['idP']);
-            }else if (isset($_GET['id']) && isset($_GET['idE'])){
+            }else if (isset($_GET['id'])){
                 Producto::obtenerProductos($_GET['id']);
             }
         break;
