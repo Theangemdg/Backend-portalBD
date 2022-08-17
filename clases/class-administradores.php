@@ -1,45 +1,143 @@
 <?php
 
     class Administrador {
-        private $id;
+        private $id_administrador;
         private $nombre;
+        private $apellido;
+        private $telefono;
+        private $edad;
         private $correo;
-        private $password;
+        private $contraseña;
 
 
         public function __construct(
-            $id,
-            $nombre,
-            $correo,
-            $password
+                 $id_administrador,
+                 $nombre,
+                 $apellido,
+                 $telefono,
+                 $edad,
+                 $correo,
+                 $contraseña
         ){
-            $this->id = $id;
+            $this->id_administrador = $id_administrador;
             $this->nombre = $nombre;
+            $this->apellido = $apellido;
+            $this->telefono = $telefono;
+            $this->edad = $edad;
             $this->correo = $correo;
-            $this->password = $password;
+            $this->contraseña = $contraseña;
         }
 
         public static function obtenerAdministradores(){
-            $contenidoArchivo =  file_get_contents("../data/administradores.json");
-            echo $contenidoArchivo ;
+
+                $conexion = new PDO("sqlsrv:server=localhost;database=PORTAL", "admin", "portal");
+                $consulta = $conexion->prepare("SELECT * from portal.usuarioAdministrador");
+                $consulta->execute();
+        
+                $datos = $consulta->fetchAll(PDO::FETCH_OBJ);
+                echo json_encode($datos);
+                $conexion = null;
+                $consulta = null;
         }
 
+        
+
         /**
-         * Get the value of id
+         * Get the value of correo
          */ 
-        public function getId()
+        public function getCorreo()
         {
-                return $this->id;
+                return $this->correo;
         }
 
         /**
-         * Set the value of id
+         * Set the value of correo
          *
          * @return  self
          */ 
-        public function setId($id)
+        public function setCorreo($correo)
         {
-                $this->id = $id;
+                $this->correo = $correo;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of contraseña
+         */ 
+        public function getContraseña()
+        {
+                return $this->contraseña;
+        }
+
+        /**
+         * Set the value of contraseña
+         *
+         * @return  self
+         */ 
+        public function setContraseña($contraseña)
+        {
+                $this->contraseña = $contraseña;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of edad
+         */ 
+        public function getEdad()
+        {
+                return $this->edad;
+        }
+
+        /**
+         * Set the value of edad
+         *
+         * @return  self
+         */ 
+        public function setEdad($edad)
+        {
+                $this->edad = $edad;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of telefono
+         */ 
+        public function getTelefono()
+        {
+                return $this->telefono;
+        }
+
+        /**
+         * Set the value of telefono
+         *
+         * @return  self
+         */ 
+        public function setTelefono($telefono)
+        {
+                $this->telefono = $telefono;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of apellido
+         */ 
+        public function getApellido()
+        {
+                return $this->apellido;
+        }
+
+        /**
+         * Set the value of apellido
+         *
+         * @return  self
+         */ 
+        public function setApellido($apellido)
+        {
+                $this->apellido = $apellido;
 
                 return $this;
         }
@@ -65,41 +163,21 @@
         }
 
         /**
-         * Get the value of correo
+         * Get the value of id_administrador
          */ 
-        public function getCorreo()
+        public function getId_administrador()
         {
-                return $this->correo;
+                return $this->id_administrador;
         }
 
         /**
-         * Set the value of correo
+         * Set the value of id_administrador
          *
          * @return  self
          */ 
-        public function setCorreo($correo)
+        public function setId_administrador($id_administrador)
         {
-                $this->correo = $correo;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of password
-         */ 
-        public function getPassword()
-        {
-                return $this->password;
-        }
-
-        /**
-         * Set the value of password
-         *
-         * @return  self
-         */ 
-        public function setPassword($password)
-        {
-                $this->password = $password;
+                $this->id_administrador = $id_administrador;
 
                 return $this;
         }
