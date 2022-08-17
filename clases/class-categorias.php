@@ -1,50 +1,46 @@
 <?php
 class Categoria
 {
-    private $id;
+    private $id_categoria;
     private $nombreCategoria;
+    private $descripcion;
+    private $cantidad_productos;
     private $icono;
-    private $productos;
 
-    public function __construct($id, $nombreCategoria, $icono, $productos)
+    public function __construct($id_categoria, $nombreCategoria, $descripcion, $cantidad_productos, $icono)
     {
-        $this->id = $id;
+        $this->id_categoria = $id_categoria;
         $this->nombreCategoria = $nombreCategoria;
+        $this->descripcion = $descripcion;
+        $this->cantidad_productos = $cantidad_productos;
         $this->icono = $icono;
-        $this->productos = $productos;
     }
 
     public function guardarCategoria()
     {
-        $contenidoArchivo = file_get_contents("../data/categorias.json");
-        $categorias = json_decode($contenidoArchivo, true);
-        $categorias[] = array(
-            "id" => $this->id,
-            "nombreCategoria" => $this->nombreCategoria,
-            "icono" => $this->icono,
-            "productos" => $this->productos,
+        $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+        $consulta = $conexion->prepare("insert into portal.categoria
+        values ('$this->id_categoria','$this->nombreCategoria' ,'$this->descripcion', '$this->cantidad_productos','$this->icono')");
+        $consulta->execute();
 
-        );
-        $archivo = fopen("../data/categorias.json", "w");
-        fwrite($archivo, json_encode($categorias));
-        fclose($archivo);
+        $conexion = null;
+        $consulta = null;
+
     }
 
     public function actualizarCategoria($indice)
     {
-        $contenidoArchivo = file_get_contents("../data/categorias.json");
-        $categorias = json_decode($contenidoArchivo, true);
-        //$usuario = $usuarios[$indice];
-        $categoria = array(
-            "id" => $this->id,
-            "nombreCategoria" => $this->nombreCategoria,
-            "icono" => $this->icono,
-            "productos" => $this->productos,
-        );
-        $categorias[$indice] = $categoria;
-        $archivo = fopen("../data/categorias.json", "w");
-        fwrite($archivo, json_encode($categorias));
-        fclose($archivo);
+        $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+        $consulta = $conexion->prepare("update portal.categoria SET
+        nombreCategoria = '$this->nombreCategoria',
+        descripcion = '$this->descripcion',
+        cantidad_productos = '$this->cantidad_productos',
+        icono = '$this->icono' 
+        WHERE id_categoria = $this->id_categoria");
+        $consulta->execute();
+        
+        $conexion = null;
+        $consulta = null;
 
     }
 
@@ -73,32 +69,62 @@ class Categoria
         echo $categoria;
     }
 
-    public static function eliminarCategoria($indice)
-    {
-        $contenidoArchivo = file_get_contents("../data/categorias.json");
-        $categorias = json_decode($contenidoArchivo, true);
-        array_splice($categorias, $indice, 1);
-        $archivo = fopen("../data/categorias.json", "w");
-        fwrite($archivo, json_encode($categorias));
-        fclose($archivo);
-    }
-
     /**
-     * Get the value of id
+     * Get the value of icono
      */
-    public function getId()
+    public function getIcono()
     {
-        return $this->id;
+        return $this->icono;
     }
 
     /**
-     * Set the value of id
+     * Set the value of icono
      *
      * @return  self
      */
-    public function setId($id)
+    public function setIcono($icono)
     {
-        $this->id = $id;
+        $this->icono = $icono;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of cantidad_productos
+     */
+    public function getCantidad_productos()
+    {
+        return $this->cantidad_productos;
+    }
+
+    /**
+     * Set the value of cantidad_productos
+     *
+     * @return  self
+     */
+    public function setCantidad_productos($cantidad_productos)
+    {
+        $this->cantidad_productos = $cantidad_productos;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of descripcion
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set the value of descripcion
+     *
+     * @return  self
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
 
         return $this;
     }
@@ -124,41 +150,21 @@ class Categoria
     }
 
     /**
-     * Get the value of icono
+     * Get the value of id_categoria
      */
-    public function getIcono()
+    public function getId_categoria()
     {
-        return $this->icono;
+        return $this->id_categoria;
     }
 
     /**
-     * Set the value of icono
+     * Set the value of id_categoria
      *
      * @return  self
      */
-    public function setIcono($icono)
+    public function setId_categoria($id_categoria)
     {
-        $this->icono = $icono;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of productos
-     */
-    public function getproductos()
-    {
-        return $this->productos;
-    }
-
-    /**
-     * Set the value of productos
-     *
-     * @return  self
-     */
-    public function setproductos($productos)
-    {
-        $this->productos = $productos;
+        $this->id_categoria = $id_categoria;
 
         return $this;
     }
