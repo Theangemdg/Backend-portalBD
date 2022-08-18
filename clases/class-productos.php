@@ -57,9 +57,16 @@ class Producto
     {
         $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
         $consulta = $conexion->prepare("select
-                                                *
-                                        from portal.productos
-                                        where id_categoria = $indice 
+                                            p.id_producto
+                                            ,p.nombre
+                                            ,p.descripcion
+                                            ,p.precio
+                                            ,p.imagen
+                                            ,c.nombreCategoria
+                                        from portal.productos p
+                                        inner join portal.categoria c
+                                        on p.id_categoria = c.id_categoria
+                                        where c.id_categoria = $indice 
                                         and estado = 1  ");
         $consulta->execute();
 
