@@ -1,7 +1,7 @@
 
 <?php
 
-include_once("../clases/class-usuarios.php");
+include_once "../clases/class-usuarios.php";
 header("Content-Type: application/json");
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
@@ -12,10 +12,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         echo json_encode($resultado);
         break;
     case 'GET':
-        if (isset($_GET['id'])) {
+        if (isset($_GET['numeroUser'])) {
+            Usuario::obtenerNumeroUser();
+        } else if (isset($_GET['id'])) {
             Usuario::obtenerUsuario($_GET['id']);
-        }
-        else {
+        } else {
             Usuario::obtenerUsuarios();
         }
         break;
