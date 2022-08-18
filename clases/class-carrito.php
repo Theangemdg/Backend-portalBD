@@ -36,8 +36,7 @@ class Carrito
                 $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
                 $consulta2 = $conexion->prepare("update portal.carrito SET
                                                     cantidad =  $nuevaCantidad
-                                                    WHERE id_producto = $this->id_producto
-                                                    and id_usuario = $this->id_usuario");
+                                                    WHERE id_producto = $this->id_producto");
                 $consulta2->execute();
 
                 $conexion = null;
