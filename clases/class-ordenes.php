@@ -1,50 +1,65 @@
 <?php
 
     class Orden {
-        private $nombreProducto;
-        private $imgProducto;
-        private $cantidad;
-        private $descripcion;
-        private $precio;
+        private $id_usuario;
+        private $id_empleado;
+        private $id_tipoEntrega;
+        private $id_tipoPago;
+        private $id_estado;
+        private $fecha_orden;
 
 
         public function __construct(
-            $nombreProducto,
-            $imgProducto,
-            $cantidad,
-            $descripcion,
-            $precio
+                $id_usuario,
+                $id_empleado,
+                $id_tipoEntrega,
+                $id_tipoPago,
+                $id_estado,
+                $fecha_orden
         ){
-            $this->nombreProducto = $nombreProducto;
-            $this->imgProducto = $imgProducto;
-            $this->cantidad = $cantidad;
-            $this->descripcion = $descripcion;
-            $this->precio = $precio;
+                $this->id_usuario = $id_usuario;
+                $this->id_empleado = $id_empleado;
+                $this->id_tipoEntrega = $id_tipoEntrega;
+                $this->id_tipoPago = $id_tipoPago;
+                $this->id_estado = $id_estado;
+                $this->fecha_orden = $fecha_orden;
+
         }
-
-        public function guardarOrden($indice){
-            $contenidoArchivo =  file_get_contents("../data/usuarios.json");
-            $usuarios = json_decode($contenidoArchivo, true);
-            $usuarios[$indice]["ordenes"][] = array(
-                    "nombreProducto"=> $this->nombreProducto,
-                    "imgProducto"=> $this->imgProducto,
-                    "cantidad"=> $this->cantidad,
-                    "descripcion"=> $this ->descripcion,
-                    "precio"=> $this ->precio
-
-            );
-            $archivo = fopen("../data/usuarios.json","w");
-            fwrite($archivo, json_encode($usuarios));
-            fclose($archivo);
+        
+        public function guardarOrden(){
+                $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+                $consulta = $conexion->prepare("insert into portal.orden
+                values ('$this->id_usuario','$this->id_empleado' ,'$this->id_tipoEntrega', '$this->id_tipoPago', '$this->id_estado', '$this->fecha_orden')");
+                $consulta->execute();
+        
+                $conexion = null;
+                $consulta = null;
+        
         }
 
         public static function obtenerOrdenes($indice){
-            $contenidoArchivo =  file_get_contents("../data/usuarios.json");
-            $usuarios = json_decode($contenidoArchivo, true);
-            echo json_encode($usuarios[$indice]["ordenes"]);
+                $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+                $consulta = $conexion->prepare("SELECT * from portal.orden where id_usuario = $indice");
+                $consulta->execute();
+        
+                $datos = $consulta->fetchAll(PDO::FETCH_OBJ);
+                echo json_encode($datos);
+                $conexion = null;
+                $consulta = null;
         }
 
+        public static function OrdenesTotales(){
+                $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+                $consulta = $conexion->prepare("SELECT * from portal.orden");
+                $consulta->execute();
+        
+                $datos = $consulta->fetchAll(PDO::FETCH_OBJ);
+                echo json_encode($datos);
+                $conexion = null;
+                $consulta = null;
+        }
 
+        /*
         public static function eliminarOrden($indice, $idOrden){
             $contenidoArchivo =  file_get_contents("../data/usuarios.json");
             $usuarios = json_decode($contenidoArchivo, true);
@@ -63,102 +78,143 @@
                 fclose($archivo);
         }
 
+        */
         /**
-         * Get the value of nombreProducto
+         * Get the value of id_orden
          */ 
-        public function getNombreProducto()
+        public function getId_orden()
         {
-                return $this->nombreProducto;
+                return $this->id_orden;
         }
 
         /**
-         * Set the value of nombreProducto
+         * Set the value of id_orden
          *
          * @return  self
          */ 
-        public function setNombreProducto($nombreProducto)
+        public function setId_orden($id_orden)
         {
-                $this->nombreProducto = $nombreProducto;
+                $this->id_orden = $id_orden;
 
                 return $this;
         }
 
         /**
-         * Get the value of imgProducto
+         * Get the value of id_usuario
          */ 
-        public function getImgProducto()
+        public function getId_usuario()
         {
-                return $this->imgProducto;
+                return $this->id_usuario;
         }
 
         /**
-         * Set the value of imgProducto
+         * Set the value of id_usuario
          *
          * @return  self
          */ 
-        public function setImgProducto($imgProducto)
+        public function setId_usuario($id_usuario)
         {
-                $this->imgProducto = $imgProducto;
+                $this->id_usuario = $id_usuario;
 
                 return $this;
         }
 
         /**
-         * Get the value of cantidad
+         * Get the value of id_empleado
          */ 
-        public function getCantidad()
+        public function getId_empleado()
         {
-                return $this->cantidad;
+                return $this->id_empleado;
         }
 
         /**
-         * Set the value of cantidad
+         * Set the value of id_empleado
          *
          * @return  self
          */ 
-        public function setCantidad($cantidad)
+        public function setId_empleado($id_empleado)
         {
-                $this->cantidad = $cantidad;
+                $this->id_empleado = $id_empleado;
 
                 return $this;
         }
 
         /**
-         * Get the value of descripcion
+         * Get the value of id_tipoEntrega
          */ 
-        public function getDescripcion()
+        public function getId_tipoEntrega()
         {
-                return $this->descripcion;
+                return $this->id_tipoEntrega;
         }
 
         /**
-         * Set the value of descripcion
+         * Set the value of id_tipoEntrega
          *
          * @return  self
          */ 
-        public function setDescripcion($descripcion)
+        public function setId_tipoEntrega($id_tipoEntrega)
         {
-                $this->descripcion = $descripcion;
+                $this->id_tipoEntrega = $id_tipoEntrega;
 
                 return $this;
         }
 
         /**
-         * Get the value of precio
+         * Get the value of id_tipoPago
          */ 
-        public function getPrecio()
+        public function getId_tipoPago()
         {
-                return $this->precio;
+                return $this->id_tipoPago;
         }
 
         /**
-         * Set the value of precio
+         * Set the value of id_tipoPago
          *
          * @return  self
          */ 
-        public function setPrecio($precio)
+        public function setId_tipoPago($id_tipoPago)
         {
-                $this->precio = $precio;
+                $this->id_tipoPago = $id_tipoPago;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of id_estado
+         */ 
+        public function getId_estado()
+        {
+                return $this->id_estado;
+        }
+
+        /**
+         * Set the value of id_estado
+         *
+         * @return  self
+         */ 
+        public function setId_estado($id_estado)
+        {
+                $this->id_estado = $id_estado;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of fecha_orden
+         */ 
+        public function getFecha_orden()
+        {
+                return $this->fecha_orden;
+        }
+
+        /**
+         * Set the value of fecha_orden
+         *
+         * @return  self
+         */ 
+        public function setFecha_orden($fecha_orden)
+        {
+                $this->fecha_orden = $fecha_orden;
 
                 return $this;
         }

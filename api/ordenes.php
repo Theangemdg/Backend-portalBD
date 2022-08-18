@@ -5,20 +5,21 @@
     switch($_SERVER['REQUEST_METHOD']){
         case 'POST':
             $_POST = json_decode(file_get_contents('php://input'),true);
-            $orden = new Orden($_POST["nombreProducto"], $_POST["imgProducto"], $_POST["cantidad"], $_POST["descripcion"], $_POST["precio"]);
-            $orden -> guardarOrden($_GET['id']);
+            $orden = new Orden($_POST["id_usuario"], $_POST["id_empleado"], $_POST["id_tipoEntrega"], $_POST["id_tipoPago"], $_POST["id_estado"], $_POST["fecha_orden"] );
+            $orden -> guardarOrden();
             $resultado["mensaje"] = "Guardar orden, informacion: ".json_encode($_POST);
             echo json_encode($resultado); 
         break;
         case 'GET':
             if (isset($_GET['id'])){
                 Orden::obtenerOrdenes($_GET['id']);
-            }
+            }else
+                Orden::OrdenesTotales();
         break;
         case 'PUT':
 
         break;
-        case 'DELETE':
+        /*case 'DELETE':
             if(isset($_GET['id']) && isset($_GET['idO'])){
                 Orden::eliminarOrden($_GET["id"], $_GET['idO']);
                 $resultado["mensaje"] = "Eliminar una orden con el id: ".$_GET['id'];
@@ -29,7 +30,7 @@
                 echo json_encode($resultado);
             }
             
-        break;
+        break; */
     }
 
 ?>
