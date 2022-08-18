@@ -2,54 +2,54 @@
 
 class Producto
 {
-    private $id;
-    private $nombreProducto;
-    private $imgProducto;
+    private $id_producto;
+    private $nombre;
     private $descripcion;
     private $precio;
+    private $id_categoria;
+    private $imagen;
+    private $estado;
 
-    public function __construct($id, $nombreProducto, $imgProducto, $descripcion, $precio)
+    public function __construct($id_producto, $nombre, $descripcion, $precio, $id_categoria, $imagen, $estado)
     {
-        $this->id = $id;
-        $this->nombreProducto = $nombreProducto;
-        $this->imgProducto = $imgProducto;
+        $this->id_producto = $id_producto;
+        $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->precio = $precio;
+        $this->id_categoria = $id_categoria;
+        $this->imagen = $imagen;
+        $this->estado = $estado;
     }
 
     public function guardarProducto($indice)
     {
-        $contenidoArchivo = file_get_contents("../data/categorias.json");
-        $categorias = json_decode($contenidoArchivo, true);
-        $categorias[$indice]["productos"][] = array(
-            "id" => $this->id,
-            "nombreProducto" => $this->nombreProducto,
-            "imgProducto" => $this->imgProducto,
-            "descripcion" => $this->descripcion,
-            "precio" => $this->precio,
 
-        );
-        $archivo = fopen("../data/categorias.json", "w");
-        fwrite($archivo, json_encode($categorias));
-        fclose($archivo);
+        $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+        $consulta = $conexion->prepare("insert into portal.productos
+        values ('$this->id_producto','$this->nombre' ,'$this->descripcion', '$this->precio','$this->id_categoria','$this->imagen','$this->estado')");
+        $consulta->execute();
+
+        $conexion = null;
+        $consulta = null;
+
     }
 
     public function actualizarProducto($indice, $idProducto)
     {
-        $contenidoArchivo = file_get_contents("../data/categorias.json");
-        $categorias = json_decode($contenidoArchivo, true);
+        $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+        $consulta = $conexion->prepare("update portal.productos SET
+        id_producto = '$this->id_producto',
+        nombre = '$this->nombre',
+        descripcion = '$this->descripcion',
+        precio = '$this->precio',
+        id_categoria = '$this->id_categoria',
+        imagen = '$this->imagen',
+        estado = '$this->estado'
+        WHERE id_producto = $this->id_producto");
+        $consulta->execute();
 
-        $producto = array(
-            "id" => $this->id,
-            "nombreProducto" => $this->nombreProducto,
-            "imgProducto" => $this->imgProducto,
-            "descripcion" => $this->descripcion,
-            "precio" => $this->precio,
-        );
-        $categorias[$indice]["productos"][$idProducto] = $producto;
-        $archivo = fopen("../data/categorias.json", "w");
-        fwrite($archivo, json_encode($categorias));
-        fclose($archivo);
+        $conexion = null;
+        $consulta = null;
 
     }
 
@@ -59,7 +59,8 @@ class Producto
         $consulta = $conexion->prepare("select
                                                 *
                                         from portal.productos
-                                        where id_categoria = $indice");
+                                        where id_categoria = $indice 
+                                        and estado = 1  ");
         $consulta->execute();
 
         $productos = $consulta->fetchAll(PDO::FETCH_OBJ);
@@ -68,59 +69,67 @@ class Producto
         echo json_encode($productos);
     }
 
-    public static function obtenerProducto($indice, $producto)
+    public static function obtenerProducto($indice, $idproducto)
     {
-        $contenidoArchivo = file_get_contents("../data/categorias.json");
-        $categorias = json_decode($contenidoArchivo, true);
-        echo json_encode($categorias[$indice]["productos"][$producto]);
+        $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+        $consulta = $conexion->prepare("SELECT * from portal.productos where id_producto = $idproducto");
+        $consulta->execute();
+
+        $datos = $consulta->fetchAll(PDO::FETCH_OBJ);
+        $conexion = null;
+        $consulta = null;
+        $producto = json_encode($datos[0]);
+        echo $producto;
     }
 
-    public static function eliminarProducto($indice, $producto)
+    public static function eliminarProducto($indice, $idproducto)
     {
-        $contenidoArchivo = file_get_contents("../data/categorias.json");
-        $categorias = json_decode($contenidoArchivo, true);
-        array_splice($categorias[$indice]["productos"], $producto, 1);
-        $archivo = fopen("../data/categorias.json", "w");
-        fwrite($archivo, json_encode($categorias));
-        fclose($archivo);
+        $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+        $consulta = $conexion->prepare("update portal.productos SET
+                                            estado = 0
+                                            WHERE id_producto = $idproducto");
+        $consulta->execute();
+
+        $conexion = null;
+        $consulta = null;
     }
 
     /**
-     * Get the value of nombreProducto
+     * Get the value of id_producto
      */
-    public function getNombreProducto()
+    public function getId_producto()
     {
-        return $this->nombreProducto;
+        return $this->id_producto;
     }
 
     /**
-     * Set the value of nombreProducto
+     * Set the value of id_producto
      *
      * @return  self
      */
-    public function setNombreProducto($nombreProducto)
+    public function setId_producto($id_producto)
     {
-        $this->nombreProducto = $nombreProducto;
+        $this->id_producto = $id_producto;
 
         return $this;
     }
 
     /**
-     * Get the value of imgProducto
+     * Get the value of nombre
      */
-    public function getImgProducto()
+    public function getNombre()
     {
-        return $this->imgProducto;
+        return $this->nombre;
     }
 
     /**
-     * Set the value of imgProducto
+     * Set the value of nombre
      *
      * @return  self
      */
-    public function setImgProducto($imgProducto)
+    public function setNombre($nombre)
     {
-        $this->imgProducto = $imgProducto;
+        $this->nombre = $nombre;
 
         return $this;
     }
@@ -166,21 +175,61 @@ class Producto
     }
 
     /**
-     * Get the value of id
+     * Get the value of id_categoria
      */
-    public function getId()
+    public function getId_categoria()
     {
-        return $this->id;
+        return $this->id_categoria;
     }
 
     /**
-     * Set the value of id
+     * Set the value of id_categoria
      *
      * @return  self
      */
-    public function setId($id)
+    public function setId_categoria($id_categoria)
     {
-        $this->id = $id;
+        $this->id_categoria = $id_categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imagen
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set the value of imagen
+     *
+     * @return  self
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of estado
+     */ 
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set the value of estado
+     *
+     * @return  self
+     */ 
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
 
         return $this;
     }
