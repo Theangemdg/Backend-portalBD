@@ -5,10 +5,7 @@
     switch($_SERVER['REQUEST_METHOD']){
         
         case 'GET':
-            if (isset($_GET['id'])){
-                PorcentajeCategorias:: obtenerInfoCategoria($_GET['id']);
-            }else
-                PorcentajeCategorias:: obtenerInfoCategorias();
+            PorcentajeCategorias:: obtenerInfoCategorias();
         break;
 
     }
