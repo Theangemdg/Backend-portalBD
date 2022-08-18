@@ -42,9 +42,9 @@ class Empleado
         nombre = '$this->nombre',
         apellido = '$this->apellido',
         telefono = '$this->telefono' ,
-        apellido = '$this->edad',
-        apellido = '$this->correo',
-        apellido = '$this->fechaDeContratacion'
+        edad = '$this->edad',
+        correo = '$this->correo',
+        fecha = '$this->fechaDeContratacion'
         WHERE id_empleado = $this->id_empleado");
         $consulta->execute();
         
