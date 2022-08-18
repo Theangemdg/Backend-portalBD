@@ -7,7 +7,7 @@
             $_POST = json_decode(file_get_contents('php://input'),true);
             $orden = new Orden($_POST["id_usuario"], $_POST["id_empleado"], $_POST["id_tipoEntrega"], $_POST["id_tipoPago"], $_POST["id_estado"], $_POST["fecha_orden"] );
             $orden -> guardarOrden();
-            $resultado["mensaje"] = "Guardar orden, informacion: ".json_encode($_POST);
+            $resultado["mensaje"] = $_POST;
             echo json_encode($resultado); 
         break;
         case 'GET':
