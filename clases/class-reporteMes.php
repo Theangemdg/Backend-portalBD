@@ -55,7 +55,7 @@ class ReporteMes
                     id_producto,
                     nombre Nombre,
                     Mes,
-                    conteo 'Cantidad por mes'
+                    conteo CantidadPorMes
                 from masConsumido 
             ), reporteEmpleado as (
                 select distinct
@@ -87,7 +87,7 @@ class ReporteMes
                 me.Mes,
                 id_producto,
                 Nombre Producto,
-                [Cantidad por mes],
+                CantidadPorMes,
                 NombreEmpleado MejorEmpleadoDelMes,
                 OrdenesPorMes
             from reporte re
@@ -96,7 +96,7 @@ class ReporteMes
             where re.Mes =  $indice
             order by
                 me.Mes,
-                re.[Cantidad por mes] desc
+                re.CantidadPorMes desc
             
             ");
         $consulta->execute();
