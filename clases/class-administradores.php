@@ -30,7 +30,7 @@
 
         public static function obtenerAdministradores(){
 
-                $conexion = new PDO("sqlsrv:server=localhost;database=PORTAL", "admin", "portal");
+                $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
                 $consulta = $conexion->prepare("SELECT * from portal.usuarioAdministrador");
                 $consulta->execute();
         
