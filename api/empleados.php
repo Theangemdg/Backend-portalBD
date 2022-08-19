@@ -12,14 +12,14 @@
         break;
         case 'GET':
             if (isset($_GET['id'])){
-                Empleado::obtenerEmpleados($_GET['id']);
+                Empleado::obtenerEmpleado($_GET['id']);
             }else{
                 Empleado::obtenerEmpleados();
             }
         break;
         case 'PUT':
             $_PUT = json_decode(file_get_contents('php://input'),true);
-            $empleado = new Empleado($_PUT["id_empleado"], $_PUT["id_tipoEmpleado"], $_PUT["nombre"], $_PUT["apellido"], $_PUT["telefono"], $_PUT["edad"], $_PUT["correo"], $_POST["fechaDeContratacion"]);
+            $empleado = new Empleado($_PUT["id_empleado"], $_PUT["id_tipoEmpleado"], $_PUT["nombre"], $_PUT["apellido"], $_PUT["telefono"], $_PUT["edad"], $_PUT["correo"], $_PUT["fechaDeContratacion"]);
             $empleado->actualizarEmpleado($_GET['id']);
             $resultado["mensaje"] = "Actualizar un empleado con el id: ".$_GET['id'].
                                     ", Informacion a actualizar: ".json_encode($_PUT);

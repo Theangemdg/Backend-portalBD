@@ -38,14 +38,14 @@ class Empleado
     {
         $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
         $consulta = $conexion->prepare("update portal.empleado SET
+        id_empleado = '$this->id_empleado',
         id_tipoEmpleado = '$this->id_tipoEmpleado',
         nombre = '$this->nombre',
         apellido = '$this->apellido',
         telefono = '$this->telefono' ,
         edad = '$this->edad',
-        correo = '$this->correo',
-        fecha = '$this->fechaDeContratacion'
-        WHERE id_empleado = $this->id_empleado");
+        correo = '$this->correo'
+        WHERE id_empleado = $indice");
         $consulta->execute();
         
         $conexion = null;
