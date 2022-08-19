@@ -32,8 +32,18 @@
                 values ('$this->id_usuario','$this->id_empleado' ,'$this->id_tipoEntrega', '$this->id_tipoPago', '$this->id_estado', '$this->fecha_orden')");
                 $consulta->execute();
         
-                $conexion = null;
+               
                 $consulta = null;
+                $consulta = $conexion->prepare("select 
+                                                        max(id_orden) last_id_value
+                                                from portal.orden  ");
+
+                   
+                $consulta->execute();
+                $ultimoId = $consulta->fetchAll(PDO::FETCH_OBJ);
+                echo json_encode($ultimoId[0]);
+                $consulta = null;
+                $conexion = null;
         
         }
 
