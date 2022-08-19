@@ -5,8 +5,8 @@ header("Content-Type: application/json");
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         $_POST = json_decode(file_get_contents('php://input'), true);
-        $producto = new Producto($_POST["id_producto"], $_POST["nombre"], $_POST["descripcion"], $_POST["precio"], $_POST["id_categoria"], $_POST["imagen"]);
-        $producto->guardarProducto($_GET['id']);
+        $producto = new Producto($_POST["id_producto"], $_POST["nombre"], $_POST["descripcion"], $_POST["precio"], $_POST["id_categoria"], $_POST["imagen"], $_POST["estado"]);
+        $producto->guardarProducto();
         $resultado["mensaje"] = "Guardar producto, informacion: " . json_encode($_POST);
         echo json_encode($resultado);
         break;
@@ -15,11 +15,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
             Producto::obtenerProducto($_GET['id'], $_GET['idP']);
         } else if (isset($_GET['id'])) {
             Producto::obtenerProductos($_GET['id']);
+        }else{
+            Producto::numeroProductos();
         }
         break;
     case 'PUT':
         $_PUT = json_decode(file_get_contents('php://input'), true);
-        $producto = new Producto($_PUT["id_producto"], $_PUT["nombre"], $_PUT["descripcion"], $_PUT["precio"], $_PUT["id_categoria"], $_PUT["imagen"]);
+        $producto = new Producto($_PUT["id_producto"], $_PUT["nombre"], $_PUT["descripcion"], $_PUT["precio"], $_PUT["id_categoria"], $_PUT["imagen"], $_PUT["estado"]);
         $producto->actualizarProducto($_GET['id'], $_GET['idP']);
         $resultado["mensaje"] = "Actualizar un producto con el id: " . $_GET['idP'] .
         ", Informacion a actualizar: " . json_encode($_PUT);

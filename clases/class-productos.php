@@ -21,12 +21,12 @@ class Producto
         $this->estado = $estado;
     }
 
-    public function guardarProducto($indice)
+    public function guardarProducto()
     {
 
         $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
         $consulta = $conexion->prepare("insert into portal.productos
-        values ('$this->id_producto','$this->nombre' ,'$this->descripcion', '$this->precio','$this->id_categoria','$this->imagen','$this->estado')");
+        values ($this->id_producto,'$this->nombre' ,'$this->descripcion', $this->precio,$this->id_categoria,'$this->imagen',$this->estado)");
         $consulta->execute();
 
         $conexion = null;
@@ -45,7 +45,7 @@ class Producto
         id_categoria = '$this->id_categoria',
         imagen = '$this->imagen',
         estado = '$this->estado'
-        WHERE id_producto = $this->id_producto");
+        WHERE id_producto = $idProducto");
         $consulta->execute();
 
         $conexion = null;
@@ -66,7 +66,7 @@ class Producto
                                         from portal.productos p
                                         inner join portal.categoria c
                                         on p.id_categoria = c.id_categoria
-                                        where c.id_categoria = $indice 
+                                        where c.id_categoria = $indice
                                         and estado = 1  ");
         $consulta->execute();
 
@@ -99,6 +99,21 @@ class Producto
 
         $conexion = null;
         $consulta = null;
+    }
+
+    public static function numeroProductos()
+    {
+        $conexion = new PDO("sqlsrv:server=localhost;database=Portal", "admin", "portal");
+        $consulta = $conexion->prepare("select 
+                                            max(id_producto) ultimo_value
+                                        from portal.productos");
+        $consulta->execute();
+
+        $datos = $consulta->fetchAll(PDO::FETCH_OBJ);
+        $conexion = null;
+        $consulta = null;
+        $productoNumber = json_encode($datos[0]);
+        echo $productoNumber;
     }
 
     /**
@@ -223,7 +238,7 @@ class Producto
 
     /**
      * Get the value of estado
-     */ 
+     */
     public function getEstado()
     {
         return $this->estado;
@@ -233,7 +248,7 @@ class Producto
      * Set the value of estado
      *
      * @return  self
-     */ 
+     */
     public function setEstado($estado)
     {
         $this->estado = $estado;
