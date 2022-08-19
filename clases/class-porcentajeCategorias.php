@@ -39,8 +39,14 @@ class PorcentajeCategorias{
             select *, sum(VentasTotalesPorCategoria) OVER(PARTITION BY year(fecha_orden)) VentasTotales
             from ProductosFiltrados
             where [Top] = 1
-        ) select productName, nombreCategoria, VentasTotalesPorCategoria, fecha_orden, round((cast(VentasTotalesPorCategoria as float) / cast(VentasTotales as float))*100, 1) [PorcentajeDeVentasPorCategoria (%)] 
-        from TablaVentasTotales;
+        ) select 
+            productName, 
+            nombreCategoria, 
+            VentasTotalesPorCategoria, 
+            year(fecha_orden) [Year], 
+            round((cast(VentasTotalesPorCategoria as float) / cast(VentasTotales as float))*100, 1) [PorcentajeDeVentasPorCategoria] 
+        from TablaVentasTotales
+        group by productName, nombreCategoria, fecha_orden, VentasTotalesPorCategoria, VentasTotales;
             
             ");
         $consulta->execute();
